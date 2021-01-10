@@ -1,0 +1,110 @@
+Substring of string S: S[ i . . . . j ] where 0 ≤ i ≤ j < N.
+Palindrome string: A string which reads the same backwards. More formally, S is palindrome if reverse(S) = S.
+
+Given a string S of length N, find the longest palindromic substring in S. Incase of multiple answers, return the substring which occurs first ie- the one with the least starting index.
+ 
+
+Example 1:
+
+Input:
+S = "aaaabbaa"
+Output: "aabbaa"
+Explanation: The longest palindromic substring
+present in the given string is "aabbaa".
+
+​Example 2:
+
+Input:
+S = "abcd"
+Output: "a"
+Explanation:The longest palindromic substring
+present in the given string is "a". There are
+three others also but "a" occurs first.
+
+Your Task:
+You don't need to read input or print anything. Complete the given funtion longestPalindrome() which takes a string as input parameter and returns its longest palindromic substring.
+
+Expected Time Complexity: O(N*N)
+Expected Auxiliary Space: O(N*N)
+
+ 
+
+Constraints:
+1 ≤ |S| ≤ 500 where |S| denotes the length of the string S.
+
+SOLUTION:
+
+bool ispalidrome(string S,int l,int r)
+{
+while(l<=r)
+{
+if(S[l]!=S[r])
+return false;
+l++;
+r--;
+}
+return true;
+}
+class Solution{
+public:
+    string longestPalindrome(string S) {
+        // code here
+        int n=S.length();
+int count=0,max_c=0,l=0,r=n-1,lp,rp;
+while(max_c<(n-l))
+{
+if(ispalidrome(S,l,r))
+{
+count=r-l+1;
+if(count>max_c)
+{
+max_c=count;
+lp=l;
+rp=r;
+}
+r=n-1;
+l++;
+}
+else
+r--;
+}
+return S.substr(lp,max_c);
+    }
+};
+
+ANOTHER SOLUTION:
+
+class Solution{
+    public:
+string longestPalindrome(string A) {
+
+    int i, high, low, len, start = 0, max = 1, even = 0;
+    len = A.size();
+    if (len % 2 == 0) {
+        even = 1;
+    }
+    for (i = 1; i < len; i++) {
+        low = i - 1;
+        high = i;
+        while (low >= 0 && high < len && A[low] == A[high]) {
+            if (high - low + 1 > max) {
+                max = high - low + 1;
+                start = low;
+            }
+            --low;
+            ++high;
+        }
+        low = i - 1;
+        high = i + 1;
+        while (low >= 0 && high < len && A[low] == A[high]) {
+            if (high - low + 1 > max) {
+                max = high - low + 1;
+                start = low;
+            }
+            --low;
+            ++high;
+        }
+    }
+    return A.substr(start, max);
+}
+};
