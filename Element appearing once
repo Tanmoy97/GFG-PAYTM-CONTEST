@@ -1,0 +1,51 @@
+Given a sorted array arr[] of N positive integers such that (N-1) elements occur exactly twice and one element occurs only once. Find the number that occurrs only once.
+
+ 
+
+Example 1:
+
+Input:
+N = 5
+arr[] = {1, 1, 2, 5, 5}
+Output: 2
+Explanation: 2 occurs once.
+ 
+
+Example 2:
+
+Input:
+N = 7
+arr[] = {2, 2, 5, 5, 20, 30, 30}
+Output: 20
+Explanation: 20 occurs once.
+all other numbers occur twice.
+ 
+
+Your Task:
+You don't need to read input or print anything. Your task is to complete the function search() which takes arr[] and N as input parameters and returns the number that occurrs only once.
+
+ 
+
+Expected Time Complexity: O(Log(N))
+Expected Auxiliary Space: O(1)
+
+ 
+
+Constraints
+1 ≤   N  ≤ 10^6
+0 ≤  A[i] ≤ 10^9
+
+SOLUTION :
+
+class Solution{
+public:	
+	int search(int arr[], int N){
+	    //code
+	    int res = arr[0];
+for (int i = 1; i < N; i++)
+res = res ^ arr[i];
+
+return res;
+	}
+};
+
