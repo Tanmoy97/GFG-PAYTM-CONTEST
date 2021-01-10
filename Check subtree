@@ -1,0 +1,76 @@
+A tree S is a subtree of a tree T if S consists of a node and all its descendants from T.
+Given two binary trees with head reference as T and S having at most N nodes. Check if S is a subtree of T.
+
+
+Example 1:
+
+Input:
+T:      1          S:   3
+      /   \            /
+     2     3          4
+   /  \    /
+  N    N  4
+
+Output: 1
+Explanation: S is a subtree of T.
+
+Example 2:
+
+Input:
+T:     10          S:   10
+      /   \            /
+    20     30         20
+   /  \   
+  40   50
+
+Output: 0
+Explanation: 
+S does not have all the descendants of 
+10 from T. S is not a subtree of T.
+
+Your Task:
+You don't need to read input or print anything. Your task is to complete the function isSubtree() which takes two nodes T and S as input parameter and returns true if S is a subtree of T, else returns false.
+
+
+Expected Time Complexity: O(N2) where N is the number of nodes. 
+Expected Auxiliary Space: O(Height of the Tree).
+
+
+Constraints:
+1 <= Number of nodes <= 10^4
+1 <= Value of nodes <= 10^4
+
+SOLUTION:
+
+bool isIdentical(Node *T, Node *S)
+{
+    if(T == NULL && S == NULL)
+    {
+        return true;
+    }
+    else if(T == NULL && S != NULL)
+    {
+        return false;
+    }
+    else if(T != NULL && S == NULL)
+    {
+        return false;
+    }
+    
+    bool check1 = isIdentical(T->left, S->left);
+    bool check2 = isIdentical(T->right, S->right);
+    bool check3 = T->data == S->data;
+    
+    return check1 && check2 && check3;
+}
+
+bool isSubtree(Node* T, Node* S) {
+    // code here
+    if(T)
+    {
+        return 
+            isIdentical(T, S) || 
+            isSubtree(T->left, S) ||
+            isSubtree(T->right, S);
+    }
+}
