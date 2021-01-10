@@ -1,0 +1,77 @@
+Given a Directed Graph with N nodes and M edges. Check if it contains a cycle or not.
+
+ 
+
+Example 1:
+
+Input:
+N=2, M=2
+Edges=[[0,1],[0,0]]
+Output: 1
+Explanation:
+In the above graph there are 2 vertices. 
+
+From graph it is clear that it contains cycle.
+ 
+
+Example 2:
+
+Input:
+N=4, M=3
+Edges=[ [0,1] , [1,2] ,[2,3] ]
+Output: 0
+ 
+
+Example 3:
+
+Input:
+N=4, M=3
+Edges=[ [0, 1], [2, 3] ,[3, 2] ]
+Output: 1
+ 
+
+You Task:
+You don't need to read input or print anything. Your task is to complete the function isCyclic() which takes the adjacency list that represents the graph and N as input parameters and returns true if the given directed graph contains a cycle. Else, it returns false.
+
+ 
+
+Expected Time Complexity: O(N + M)
+Expected Auxiliary Space: O(N)
+
+ 
+
+Constraints:
+1<= N,M <= 1000
+0 <= Edge[i][0],Edge[i][1] <= N-1
+
+SOLUTION:
+
+bool isCyclic(int N, vector<int> adj[])
+{
+    // Your code here
+    unordered_set<int> white, gray;
+for(int i = 0; i < N; white.emplace(i++));
+stack<int> s;
+while(!white.empty()){
+s.push(*white.begin());
+while(!s.empty()){
+int t1 = s.top();
+if(white.find(t1) != gray.end()){
+white.erase(t1);
+gray.emplace(t1);
+}
+else{
+gray.erase(t1);
+s.pop();
+}
+for(const int &x: adj[t1]){
+if(white.find(x) != white.end()){
+s.push(x);
+}
+else if(gray.find(x) != gray.end())
+return true;
+}
+}
+}
+return false;
+}
